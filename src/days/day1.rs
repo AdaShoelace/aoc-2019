@@ -1,18 +1,25 @@
-pub fn first(input: Vec<String>) -> f64 {
-    input
-        .iter()
-        .map(|line| line.parse::<f64>().unwrap())
-        .map(fuel)
-        .sum::<f64>()
+use super::Day;
+
+pub struct Day1;
+
+impl Day for Day1 {
+    fn first(&self, input: Vec<String>) -> u64 {
+        input
+            .iter()
+            .map(|line| line.parse::<f64>().unwrap())
+            .map(fuel)
+            .sum::<f64>() as u64
+    }
+
+    fn second(&self, input: Vec<String>) -> u64 {
+        input
+            .into_iter()
+            .map(|line| line.parse::<f64>().unwrap())
+            .map(|line| fuel_rec(fuel(line)))
+            .sum::<f64>() as u64
+    }
 }
 
-pub fn second(input: Vec<String>) -> f64 {
-    input
-        .into_iter()
-        .map(|line| line.parse::<f64>().unwrap())
-        .map(|line| fuel_rec(fuel(line)))
-        .sum::<f64>()
-}
 
 fn fuel(mass: f64) -> f64 {
     let ret = (mass / 3.).floor() - 2.;
